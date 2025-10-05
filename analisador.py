@@ -1,13 +1,19 @@
 def main():
     texto = """
-    O Python é uma linguagem de programação incrível. 
-    Python é fácil de aprender e poderoso.
-    Programação em Python é divertida!
+    Python, é não até;até até até... tudo tudo nada tudo didático, prolixo, sabe sabe sabe sabe tudo mesmo, ok, ok, ok, ok
     """
     palavras = limpar_texto(texto)
+    repetidas = palavras_mais_repetidas(palavras)
+    print("ANALISADOR DE PALAVRAS\n=====================================================================")
     print(f"Total de palavras: {contar_palavras(palavras)}")
-    print(f"Palavras únicas: {contar_palavras_unicas(palavras)}")
-    print(f"Palavras que mais repetem: {palavras_mais_repetidas(palavras)}")
+    print("=====================================================================")
+    print(f"Total de palavras únicas: {contar_palavras_unicas(palavras)}")
+    print("=====================================================================")
+    print(f"Palavras únicas encontradas: {set(palavras)}")
+    print("=====================================================================")
+    print(f"Quantas palavras mais repetem: {len(repetidas)}")
+    print("=====================================================================")
+    print(f"Palavras que mais repetem: {repetidas}")
     
 def limpar_texto(texto):
     """Remove pontuação e divide as palvras"""
@@ -36,18 +42,27 @@ def contar_palavras_unicas(palavras):
 def palavras_mais_repetidas(palavras):
     """Encontrando as palavras que mais se repetem no texto"""
     
-    contador = {} # Armazena a contagem de cada palavra
+    contador = {} # Armazena a palavra como chave e a contagem como valor
     
     for palavra in palavras:
-        if palavra in contador:
-            contador[palavra] +=1 # Caso a palavra esteja no dicionário, incrementa a contagem
-        else: 
-            contador[palavra] = 1 # Caso contrário, inicializa a contagem com 1
+        contador[palavra] = contador.get(palavra, 0) + 1
+        # Caso a palavra já exista no dicionário, incrementa o valor em 1
+        
+        if not contador:
+            return []
+        # Caso o dicionário esteja vazio, retorna uma lista vazia
+        
     
     # Comparando os valores do dicionário para encontrar a maior contagem
     
-    repete = max(contador.values()) # Maior valor obstido no dicionário contador
-    return repete
+    repeticoes = max(contador.values()) # Maior valor obtido no dicionário contador
+   
+    # encontrando as palavras que se encaixam no total atribuído à repeticoes
+    mais_repetidas = [ palavra for palavra, contagem in contador.items() 
+        if contagem == repeticoes]
+    
+    return mais_repetidas
+
 
 if __name__ == "__main__":
     main()
